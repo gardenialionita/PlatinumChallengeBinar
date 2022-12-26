@@ -1,0 +1,7 @@
+*.ipynb
+database.py
+*.db
+models/
+Pipfile
+Pipfile.lock
+inference/_pycache_/
