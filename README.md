@@ -2,7 +2,8 @@ Predict Sentiment-Analysis in Bahasa Indonesia
 
 Sentiment Analysis yang dilakukan menggunakan model LSTM and Neural Network. 
 Buka link berikut untuk melihat model yang telah dibuat.
-<script src="https://gist.github.com/gardenialionita/81277555cc6adbc2d49e425d373c6091.js"></script>
+Model LSTM:
+(https://gist.github.com/gardenialionita/81277555cc6adbc2d49e425d373c6091#file-v2_platinum_lstm_kelompok2-ipynb)
 
 Model tersebut kemudian di simpan dan dipakai untuk membuat demo aplikasi di bawah ini.
 
