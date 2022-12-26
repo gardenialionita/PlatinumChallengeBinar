@@ -59,44 +59,44 @@ def predict_file():
         data_csv = pd.read_csv(data_file,encoding = "latin-1")
 
 
-    st.write('Preview Data')
-    st.dataframe(data_csv.iloc[:, 0])
-    predictfile_button = st.button('predict file')
+        st.write('Preview Data')
+        st.dataframe(data_csv.iloc[:, 0])
+        predictfile_button = st.button('predict file')
 
-    query_text = 'delete from master_data'
-    mycursor.execute(query_text)
-    db_conn.commit()
+        query_text = 'delete from master_data'
+        mycursor.execute(query_text)
+        db_conn.commit()
 
-    first_column = data_csv.iloc[:, 0]
-    for input_text in first_column:
+        first_column = data_csv.iloc[:, 0]
+        for input_text in first_column:
 
-        data_clean = cleansing(input_text)
-        if  predictfile_button:
-            if option=='LSTM':
-                result = call_api(input_text,'predict_sentiment_lstm')
-                result = json.dumps(result['result_sentiment'])
-                insert_tweet = 'insert into master_data (data_raw, data_clean, data_sentiment) values(?, ?, ?)'
-                value = (input_text, data_clean, result)
-                mycursor.execute(insert_tweet, value)
-                db_conn.commit()
-            elif option=='ANN':
-                result = call_api(input_text,'predict_sentiment_lstm')
-                result = json.dumps(result['result_sentiment'])
-                insert_tweet = 'insert into master_data (data_raw, data_clean, data_sentiment) values(?, ?, ?)'
-                value = (input_text, data_clean, result)
-                mycursor.execute(insert_tweet, value)
-                db_conn.commit()
-            else:
-                st.write('Belum pilih model, silakan coba lagi')
+            data_clean = cleansing(input_text)
+            if  predictfile_button:
+                if option=='LSTM':
+                    result = call_api(input_text,'predict_sentiment_lstm')
+                    result = json.dumps(result['result_sentiment'])
+                    insert_tweet = 'insert into master_data (data_raw, data_clean, data_sentiment) values(?, ?, ?)'
+                    value = (input_text, data_clean, result)
+                    mycursor.execute(insert_tweet, value)
+                    db_conn.commit()
+                elif option=='ANN':
+                    result = call_api(input_text,'predict_sentiment_lstm')
+                    result = json.dumps(result['result_sentiment'])
+                    insert_tweet = 'insert into master_data (data_raw, data_clean, data_sentiment) values(?, ?, ?)'
+                    value = (input_text, data_clean, result)
+                    mycursor.execute(insert_tweet, value)
+                    db_conn.commit()
+                else:
+                    st.write('Belum pilih model, silakan coba lagi')
 
-    query_text = 'select * from master_data'
-    select_data = mycursor.execute(query_text)
-    tweet = [
-        dict(data_id=row[0], data_raw=row[1], data_clean= row[2], data_sentiment = row[3])
-        for row in select_data.fetchall()
-    ]
+        query_text = 'select * from master_data'
+        select_data = mycursor.execute(query_text)
+        show_data = [
+            dict(data_id=row[0], data_raw=row[1], data_clean= row[2], data_sentiment = row[3])
+            for row in select_data.fetchall()
+        ]
 
-    st.write(tweet)
+        st.write(show_data)
 
 
 st.title('Predict Sentiment Analysis in Bahasa Indonesia')
